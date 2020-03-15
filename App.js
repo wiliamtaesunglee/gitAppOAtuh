@@ -3,36 +3,23 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-};
-
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
+import LoginScreen from './src/screens/LoginScreen';
+import LogedUserScreen from './src/screens/LogedUserScreen';
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="LoginScreen">
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="LoginScreen"
+          component={LoginScreen}
           options={{ title: "Login" }}
         />
         <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
+          name="LogedUserScreen"
+          component={LogedUserScreen}
           options={{ title: "Welcome" }}
         />
       </Stack.Navigator>
