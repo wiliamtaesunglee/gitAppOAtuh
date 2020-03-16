@@ -4,9 +4,12 @@ import { View, Text, Button } from 'react-native';
 const LogedUserScreen = ({ navigation }) => {
 return (
     <View>
-        <Text>Details Screen</Text>
         <Button
-            title="Go to Details... again"
+            title="Go to List"
+            onPress={() => navigation.navigate('userAroundScreen')}
+          />
+        <Button
+            title="Go back to login screen"
             onPress={() => navigation.navigate('LoginScreen')}
         />
     </View>
