@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { NavigationContainer, useLinking } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from './src/screens/LoginScreen';
@@ -11,9 +10,20 @@ import userSearchDataScreen from './src/screens/userSearchedDataScreen.js';
 
 const Stack = createStackNavigator();
 
-function App() {
+const App = () => {
+
+  const ref = React.useRef();
+
+  const { getInitialState } = useLinking(ref, {
+    prefixes: ['com.gitoatuhprototype://'],
+    config: {
+      LogedUserScreen: 'loged',
+    },
+  });
+
+
   return (
-    <NavigationContainer>
+    <NavigationContainer /*initialState={initialState}*/ ref={ref}>
       <Stack.Navigator initialRouteName="LoginScreen">
         <Stack.Screen
           name="LoginScreen"
@@ -23,21 +33,21 @@ function App() {
         <Stack.Screen
           name="LogedUserScreen"
           component={LogedUserScreen}
-          options={{ title: "Welcome" }}
+          options={{ title: "Loged Area" }}
         />
         <Stack.Screen
           name="userAroundScreen"
-          component={LogedUserScreen}
+          component={userAroundScreen}
           options={{ title: "Users Around Your Location" }}
         />
         <Stack.Screen
           name="userAroundMapScreen"
-          component={LogedUserScreen}
+          component={userAroundMapScreen}
           options={{ title: "Users Around Your location Map" }}
         />
         <Stack.Screen
           name="userSearchDataScreen"
-          component={LogedUserScreen}
+          component={userSearchDataScreen}
           options={{ title: "User Selected Data" }}
         />
       </Stack.Navigator>
