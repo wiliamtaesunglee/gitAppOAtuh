@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavigationContainer, useLinking } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from 'react-native';
 
+import store from './src/store';
 import LoginScreen from './src/screens/LoginScreen';
 import LogedUserScreen from './src/screens/LogedUserScreen';
 import userAroundMapScreen from './src/screens/userAroundMapScreen.js';
