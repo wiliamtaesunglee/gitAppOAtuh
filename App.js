@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer, useLinking } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider } from 'react-native';
+import { Provider } from 'react-redux'
 
 import store from './src/store';
 import LoginScreen from './src/screens/LoginScreen';
@@ -25,6 +25,7 @@ const App = () => {
 
 
   return (
+  <Provider store={store}>
     <NavigationContainer /*initialState={initialState}*/ ref={ref}>
       <Stack.Navigator initialRouteName="LoginScreen">
         <Stack.Screen
@@ -54,6 +55,7 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+  </Provider>
   );
 }
 
