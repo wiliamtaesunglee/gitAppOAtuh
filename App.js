@@ -14,19 +14,9 @@ const Stack = createStackNavigator();
 
 const App = () => {
 
-  const ref = React.useRef();
-
-  const { getInitialState } = useLinking(ref, {
-    prefixes: ['com.gitoatuhprototype://'],
-    config: {
-      LogedUserScreen: 'loged',
-    },
-  });
-
-
   return (
   <Provider store={store}>
-    <NavigationContainer /*initialState={initialState}*/ ref={ref}>
+    <NavigationContainer /*initialState={initialState} ref={ref}*/>
       <Stack.Navigator initialRouteName="LoginScreen">
         <Stack.Screen
           name="LoginScreen"
