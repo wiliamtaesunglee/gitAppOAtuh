@@ -7,6 +7,7 @@ import config from '../../config';
 
 const LoginScreen = ({ navigation }) => {
     const [token, setToken] = useState({});
+
     const githubLoginRequest = async () => {
         try {
             const response = await authorize(config);
@@ -19,6 +20,7 @@ const LoginScreen = ({ navigation }) => {
             console.log('retorno do erro: ', error);
         }
     }
+
     return (
       <View>
         <Text>Home Screen</Text>
