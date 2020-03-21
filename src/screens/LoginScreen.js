@@ -3,6 +3,12 @@ import { View, Text, Button } from 'react-native';
 //import { connect } from 'react-redux'
 import { authorize } from 'react-native-app-auth';
 
+import {
+  githubLogin,
+  fetchUserData,
+  fetchDevsAround
+ } from '../actions';
+
 import config from '../../config';
 
 const LoginScreen = ({ navigation }) => {
@@ -10,11 +16,14 @@ const LoginScreen = ({ navigation }) => {
 
     const githubLoginRequest = async () => {
         try {
-            const response = await authorize(config);
+            await authorize(config)
+              .then(r => {
+                setToken(token);
+                console.log('User Login Success')
+                githubLogin(token)
+              });
 
-            await setToken(response.accessToken);
 
-            console.log('User Login Success')
 
         } catch (error) {
             console.log('retorno do erro: ', error);
@@ -29,7 +38,9 @@ const LoginScreen = ({ navigation }) => {
           onPress={() => githubLoginRequest()}
         />
         {
-          token.length > 0 ? navigation.navigate('LogedUserScreen') : <Text>Favor efetuar Login</Text>
+          token.length > 0 ?
+            navigation.navigate('LogedUserScreen')
+            : <Text>Favor efetuar Login</Text>
         }
       </View>
     );
