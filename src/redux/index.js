@@ -10,22 +10,22 @@ const initialState = {
   developersAround: {}
 };
 
-export const reducer = (state = initialState, { type, payload }) => {
-  switch(type) {
+export const reducer = (state = initialState, action) => {
+  switch(action.type) {
     case GITHUB_LOGIN:
       return {
         ...state,
-        token: payload
+        token: action.token
       };
     case FETCH_USER_DATA:
       return {
         ...state,
-        userData: payload
+        userData: action.userData
       };
     case FETCH_DEVS_AROUND:
       return {
       ...state,
-      developersAround: payload
+      developersAround: action.developersAround
       };
     default:
       return state;
