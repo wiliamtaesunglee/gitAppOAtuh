@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
-//import { connect } from 'react-redux'
 import { authorize } from 'react-native-app-auth';
 import { useDispatch, useSelector } from 'react-redux';
 
 import config from '../../config';
-import { GITHUB_LOGIN } from '../actions/types';
+import { FETCH_USER_DATA } from '../actions/types';
 
 const LoginScreen = ({ navigation }) => {
-    const [token, setToken] = useState({});
     const [userData, setUserData] = useState({});
+    const [token, setToken] = useState({});
 
     const dispatch = useDispatch();
-    const accessToken = useSelector(state => state.token)
 
     const githubLoginRequest = async () => {
         try {
             await authorize(config)
-              .then(r => setToken(r.accessToken))
+              .then(r => {
+                setToken(r.accessToken)
+                fetch('https://api.github.com/user', {
+                  method: 'GET',
+                  headers: {
+                      "Authorization": `token ${r.accessToken}`
+                  }
+                })
+                .then(r => {
+                  setUserData(r._bodyText)
+                  console.log(r)
+                })
+              })
         }
         catch (error) {
             console.log('retorno do erro: ', error);
         }
     }
 
-    const storeToken = (token) => {
+    const storeUserData = (userData) => {
       dispatch({
-        type: GITHUB_LOGIN,
-        token: token
+        type: FETCH_USER_DATA,
+        userData: userData
       })
     };
 
-
-    storeToken(token);
-
-
+    storeUserData(userData);
 
     return (
       <View>
