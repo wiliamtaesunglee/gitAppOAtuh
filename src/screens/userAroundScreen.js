@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const userAroundScreen = ({ navigation }) => {
@@ -9,7 +9,9 @@ return (
     <View>
       {
         developersAround.length > 0 ?
+        <ScrollView>
           <Text>{developersAround}</Text>
+        </ScrollView>
           :
           <Text>erro</Text>
       }
