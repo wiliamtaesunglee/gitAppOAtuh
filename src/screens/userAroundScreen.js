@@ -8,7 +8,7 @@ const userAroundScreen = ({ navigation }) => {
 return (
     <View>
       {
-        developersAround.length > 0 ?
+        developersAround !== undefined ?
         <ScrollView>
           <Text>{developersAround}</Text>
         </ScrollView>

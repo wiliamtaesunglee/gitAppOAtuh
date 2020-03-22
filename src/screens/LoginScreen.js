@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { authorize } from 'react-native-app-auth';
 import { useDispatch, useSelector } from 'react-redux';
 
 import config from '../../config';
 import { FETCH_USER_DATA } from '../actions/types';
+import ButtonComponent from '../components/Button';
+
 
 const LoginScreen = ({ navigation }) => {
     const [userData, setUserData] = useState({});
@@ -25,7 +27,6 @@ const LoginScreen = ({ navigation }) => {
                 })
                 .then(r => {
                   setUserData(r._bodyText)
-                  console.log(r)
                 })
               })
         }
@@ -44,19 +45,30 @@ const LoginScreen = ({ navigation }) => {
     storeUserData(userData);
 
     return (
-      <View>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => githubLoginRequest()}
-        />
+      <View style={styles.container}>
+
+        <ButtonComponent
+          title="Login"
+          func={() => githubLoginRequest()}
+       />
         {
-          token.length > 0 ?
+          userData !== undefined ?
             navigation.navigate('LogedUserScreen')
             : <Text>Favor efetuar Login</Text>
         }
       </View>
     );
   }
+
+const styles = StyleSheet.create({
+  container: {
+
+    width: '100%',
+    height: "100%",
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+
+})
 
 export default LoginScreen;
