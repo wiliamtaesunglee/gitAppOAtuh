@@ -1,22 +1,70 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, Linking, Button } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const userAroundScreen = ({ navigation }) => {
   const developersAround = useSelector(state => state.developersAround);
 
-return (
-    <View>
-      {
-        developersAround !== undefined ?
-        <ScrollView>
-          <Text>{developersAround}</Text>
-        </ScrollView>
-          :
-          <Text>erro</Text>
-      }
-    </View>
-    );
+  const item = developersAround.items
+  console.log(developersAround.items)
+
+   let newList = Object.keys(item).map(elem => {
+        let login =  item[elem].login
+        let image = item[elem].avatar_url
+        let key =  item[elem].id
+        let url =  item[elem].html_url
+        let obj = {
+          "login": login,
+          "image": image,
+          "key": key,
+          "url": url
+        }
+        return obj
+      })
+
+  console.log(newList)
+
+  return(
+  <ScrollView>
+    {
+   Object.keys(item).map(elem => {
+        let login =  item[elem].login
+        let image = { uri: item[elem].avatar_url, width: 150, height: 150 }
+        let key =  item[elem].id
+        let url =  item[elem].html_url
+        return (
+          <View style={styles.containerView} key={key}>
+            <Image
+              source={image}
+            />
+            <View style={styles.containerText}>
+              <Text>{login}</Text>
+              <Button
+                title="My Page"
+                onPress={() => Linking.openURL(url)}
+                color="#000"
+              />
+            </View>
+          </View>
+        )
+      })
+    }
+  </ScrollView>
+  )
 }
+
+const styles = StyleSheet.create({
+  containerView: {
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginTop: 20,
+    alignItems: 'center'
+  },
+  containerText: {
+    marginLeft: 20,
+    marginBottom: 15
+  },
+
+})
 
 export default userAroundScreen;

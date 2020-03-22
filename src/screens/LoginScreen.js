@@ -22,11 +22,12 @@ const LoginScreen = ({ navigation }) => {
                 fetch('https://api.github.com/user', {
                   method: 'GET',
                   headers: {
-                      "Authorization": `token ${r.accessToken}`
+                      "Authorization": `token ${r.accessToken}`,
+                      'Content-Type': 'application/json'
                   }
                 })
                 .then(r => {
-                  setUserData(r._bodyText)
+                  setUserData(JSON.parse(r._bodyText))
                 })
               })
         }
@@ -62,7 +63,6 @@ const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-
     width: '100%',
     height: "100%",
     alignItems: "center",
