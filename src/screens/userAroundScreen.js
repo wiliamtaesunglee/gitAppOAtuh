@@ -6,7 +6,6 @@ const userAroundScreen = ({ navigation }) => {
   const developersAround = useSelector(state => state.developersAround);
 
   const item = developersAround.items
-  console.log(developersAround.items)
 
    let newList = Object.keys(item).map(elem => {
         let login =  item[elem].login
@@ -22,8 +21,6 @@ const userAroundScreen = ({ navigation }) => {
         return obj
       })
 
-  console.log(newList)
-
   return(
   <ScrollView>
     {
@@ -33,11 +30,11 @@ const userAroundScreen = ({ navigation }) => {
         let key =  item[elem].id
         let url =  item[elem].html_url
         return (
-          <View style={styles.containerView} key={key}>
+          <View key={key}>
             <Image
               source={image}
             />
-            <View style={styles.containerText}>
+            <View>
               <Text>{login}</Text>
               <Button
                 title="My Page"
@@ -52,19 +49,5 @@ const userAroundScreen = ({ navigation }) => {
   </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  containerView: {
-    flexDirection: 'row',
-    marginLeft: 20,
-    marginTop: 20,
-    alignItems: 'center'
-  },
-  containerText: {
-    marginLeft: 20,
-    marginBottom: 15
-  },
-
-})
 
 export default userAroundScreen;
